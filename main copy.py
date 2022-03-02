@@ -233,7 +233,7 @@ Encoder = pickle.load(f)
 f.close()
 
 #koreaboo
-#Collect ALL NEWS for a search term
+# #Collect ALL NEWS for a search term
 # titles = []
 # urls = []
 # contents = []
@@ -291,10 +291,10 @@ f.close()
 # results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,website,artist_name)]
 
 # for result in results_object:
-#   requests.post("http://localhost:3000/artist-news/", data = result)
-# # json_object = json.dumps([dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,website,artist_name)], indent = 4,ensure_ascii=False)
-# # with open(fname+".json", "w", encoding='utf8') as outfile:
-# #     outfile.write(json_object)
+#   requests.post("https://localhost:3000/artist-news/", data = result)
+# json_object = json.dumps([dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,website,artist_name)], indent = 4,ensure_ascii=False)
+# with open(fname+".json", "w", encoding='utf8') as outfile:
+#     outfile.write(json_object)
 
 # #soompi
 # #Collect ALL NEWS for a search term
@@ -305,9 +305,8 @@ f.close()
 # dates = []
 # categories = []
 # imgs = []
-# website = []
-# artist_name = []
-# col = ['title','url','content','writer','date','category','img_link','website','artist']
+# websites = []
+# col = ['title','url','content','writer','date','category','img_link','website']
 
 # print('This cell will collect as many news as possible based on your search term.')
 # search_term = input('Search Term: ')
@@ -342,19 +341,19 @@ f.close()
 #     dates.append(date)
 #     categories.append(cat)
 #     imgs.append(img_link)
-#     website.append("soompi")
-#     artist_name.append(search_term)
+#     websites.append("soompi")
+  
 #   # for d in data['results']:
 #   #   print(d)
 #   if(hasnext==False):
 #     break
 
-# results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,website,artist_name)]
+# results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,websites)]
 # for result in results_object:
 #   requests.post("http://localhost:3000/artist-news/", data = result)
-# # json_object = json.dumps([dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,website,artist_name)], indent = 4,ensure_ascii=False)
-# # with open(fname+".json", "w", encoding='utf8') as outfile:
-# #     outfile.write(json_object)
+# json_object = json.dumps([dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,website,artist_name)], indent = 4,ensure_ascii=False)
+# with open(fname+".json", "w", encoding='utf8') as outfile:
+#     outfile.write(json_object)
 
 # sec = 86400
 # limit_year = 2022
@@ -636,7 +635,7 @@ f.close()
 #Collect ALL News
 
 #set sec to 86400 for a day interval
-
+#PAKE INI
 sec = 86400
 limit_year = 2022
 retry_limit = 10
@@ -779,7 +778,7 @@ while True:
       break
 results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,websites)]
 for result in results_object:
-  requests.post("https://localhost:3000/artist-news/", data = result)
+  requests.post("http://localhost:3000/artist-news/", data = result)
 
 #Collect News posted today/certain date from both site + repetition
 timeshow = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
@@ -881,7 +880,7 @@ while(True):
       break 
   results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,websites)]
   for result in results_object:
-    requests.post("https://localhost:3000/artist-news/", data = result)
+    requests.post("http://localhost:3000/artist-news/", data = result)
     
   print("-----------------------------------------------------------------")
   print("Collecting news from Koreaboo...")
@@ -961,7 +960,7 @@ while(True):
       break
   results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,websites)]
   for result in results_object:
-    requests.post("https://localhost:3000/artist-news/", data = result)
+    requests.post("http://localhost:3000/artist-news/", data = result)
   
   diff = time.time()-start
   sec2 = sec - diff
