@@ -3,6 +3,7 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
+from ast import If
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
@@ -44,6 +45,14 @@ import requests
 import time
 # nltk.download('all')
 
+
+
+tanda="localhost"
+urlnya=""
+if tanda == "localhost":
+  urlnya="http://localhost:3030/artist-news/"
+else :
+  urlnya="https://klovers.space:3000/artist-news/"
 
 
 
@@ -250,7 +259,7 @@ while True:
       break
 results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,websites)]
 for result in results_object:
-  requests.post("http://localhost:3000/artist-news/", data = result)
+  requests.post(urlnya, data = result)
 
 #Collect News posted today/certain date from both site + repetition
 timeshow = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
@@ -353,7 +362,7 @@ while(True):
     
   results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,websites)]
   for result in results_object:
-    requests.post("http://localhost:3000/artist-news/", data = result)
+    requests.post(urlnya, data = result)
   print("-----------------------------------------------------------------")
   print("Collecting news from Koreaboo...")
   titles = []
@@ -431,7 +440,7 @@ while(True):
       break
   results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,websites)]
   for result in results_object:
-    requests.post("http://localhost:3000/artist-news/", data = result)
+    requests.post(urlnya, data = result)
   
   diff = time.time()-start
   sec2 = sec - diff
