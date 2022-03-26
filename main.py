@@ -174,7 +174,7 @@ while hasnext=="True":
     datef = datetime.datetime.strptime(date, "%b %d, %Y")
     print(date)
     if(datef.year>=limit_year):
-      date = datef.strftime("%A, %-d %B %Y")
+      date = datef.strftime("%A, %d %B %Y")
       paragraphs = soup.find("div",{"class":"article-wrapper"}).findAll("p")
       content = ''
       for p in paragraphs:
@@ -242,7 +242,7 @@ while True:
     datef = datetime.datetime.strptime(date, "%Y-%m-%d")
     print(date)
     if(datef.year>=limit_year):
-      date = datef.strftime("%A, %-d %B %Y")
+      date = datef.strftime("%A, %d %B %Y")
       img_link = detail.find("img",{"class":"featured-image"}).get("src")
       txt = title + " " + content
       txt = [preproc_str(txt)]
@@ -338,7 +338,7 @@ while(True):
       if datef > datenowf:
         continue
       elif datef == datenowf:
-        date = datef.strftime("%A, %-d %B %Y")
+        date = datef.strftime("%A, %d %B %Y")
         print(title)
         paragraphs = soup.find("div",{"class":"article-wrapper"}).findAll("p")
         content = ''
@@ -423,7 +423,7 @@ while(True):
       if datef > datenowf:
         continue
       elif datef == datenowf:
-        date = datef.strftime("%A, %-d %B %Y")
+        date = datef.strftime("%A, %d %B %Y")
         print(title)
         img_link = detail.find("img",{"class":"featured-image"}).get("src")
         txt = [preproc_str(title)]
