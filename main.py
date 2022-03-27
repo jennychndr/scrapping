@@ -45,7 +45,204 @@ import requests
 import time
 # nltk.download('all')
 
+#Collect ALL News WITHOUT PREDICTION
 
+# limit_year = 2021
+# highest_year = 2021
+# retry_limit = 10
+# print(f"News is limited only until the year {limit_year} from now")
+
+# start = time.time()
+# timeshow = datetime.datetime.now().strftime("%d-%m-%y %H:%M:%S")
+# print("Process of collecting ALL news begins: " + timeshow)
+# titles = []
+# urls = []
+# contents = []
+# writers = []
+# dates = []
+# imgs = []
+# col = ['Title','URL','Content','Writer','Date','IMG Link']
+# hasnext = "True"
+# pagenum = 1
+# retry = "False"
+# retry_n = 0
+# while hasnext=="True":
+#   if(retry == "True"):
+#     retry = "False"
+#   else:
+#     pagenum += 1
+#   if retry_n>retry_limit:
+#     print("Retry limit reached. Stopping current process... (continue to next process)")
+#     break
+#   try:
+#     data = rq.get('https://api-fandom.soompi.com/categories/9wpc/posts.json?perPage=&page='+str(pagenum)).json()
+#   except:
+#     retry_n +=1
+#     print(f"Error loading page, retrying...({retry_n})")
+#     retry = "True"
+#     continue
+#   retry_n = 0
+#   hasnext = str(data['pageInfo']['hasNextPage'])
+#   # print(hasnext)
+#   pagenum += 1
+#   # print(data['results'])
+#   for d in data['results']:
+#     # print(d['id'])
+#     # print(d['id']+'/'+d['slug'])
+#     url = 'https://www.soompi.com/article/'+d['id']+'/'+d['slug']
+#     title = d['title']['text']
+#     print(title)
+#     page = rq.get(url)
+#     soup = bs(page.content, 'html.parser')
+#     # print(soup.prettify())
+#     # info-emphasis right
+#     writer = soup.find("div",{"class":"info-emphasis right"}).find("a").decode_contents()
+#     date = soup.find("div",{"class":"date-time"}).decode_contents()
+#     datef = datetime.datetime.strptime(date, "%b %d, %Y")
+#     print(date)
+#     if(datef.year>=limit_year):
+#       if(datef.year>highest_year):
+#         print("SKIPPING, IT'S TOO NEW...");
+#         break
+#       paragraphs = soup.find("div",{"class":"article-wrapper"}).findAll("p")
+#       content = ''
+#       for p in paragraphs:
+#         content += bs(p.decode_contents(),'html.parser').get_text()+' '
+#       img_link = soup.find("span",{"class":"image-wrapper"}).find("img").get("src")
+#       img_link = img_link.split("?s=")[0]
+#       titles.append(title)
+#       urls.append(url)
+#       contents.append(content)
+#       writers.append(writer)
+#       dates.append(date)
+#       imgs.append(img_link)
+#     else:
+#       hasnext="False"
+#       break
+# json_object = json.dumps([dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,imgs)], indent = 4,ensure_ascii=False)
+# with open('all_soompi'+".json", "w", encoding='utf8') as outfile:
+#     outfile.write(json_object)
+
+# titles = []
+# urls = []
+# contents = []
+# writers = []
+# dates = []
+# imgs = []
+# col = ['Title','URL','Content','Writer','Date','IMG Link']
+# pagenum = 0
+# stop = "False"
+# retry = "False"
+# retry_n = 0
+# while True:
+#   if(retry == "True"):
+#     retry = "False"
+#   else:
+#     pagenum += 1
+#   if retry_n>retry_limit:
+#     print("Retry limit reached. Stopping current process... (continue to next process)")
+#     break
+#   try:
+#     page = rq.get('https://www.koreaboo.com/news/page/'+str(pagenum)+'/')
+#   except:
+#     retry_n +=1
+#     print(f"Error loading page, retrying...({retry_n})")
+#     retry = "True"
+#     continue
+#   retry_n = 0
+#   soup = bs(page.content, 'html.parser')
+#   news = soup.findAll("article",{"class": "cat-news"})
+#   if len(news)<1:
+#     break
+#   if(stop == "True"):
+#     break
+#   for item in news:
+#     url = (item.find("a").get("href"))
+#     title = item.find("div",{"class":"ap-chron-medium-title"}).decode_contents()
+#     print(title)
+#     page = rq.get(url)
+#     detail = bs(page.content, 'html.parser')
+#     paragraphs = detail.find("div",{"class":"entry-content"}).findAll("p")
+#     content = ''
+#     for p in paragraphs:
+#       content += bs(p.decode_contents(),'html.parser').get_text()+' '
+#     if(detail.find("div",{"class":"writer-bio-name"}).find("a")):
+#       writer = detail.find("div",{"class":"writer-bio-name"}).find("a").decode_contents()
+#     else:
+#       writer = "Koreaboo"
+#     date = detail.find("div",{"class":"posted-on"}).find("time").get('datetime')[:10]
+#     datef = datetime.datetime.strptime(date, "%Y-%m-%d")
+#     print(date)
+#     if(datef.year>=limit_year):
+#       if(datef.year>highest_year):
+#         print("SKIPPING, IT'S TOO NEW...")
+#         break
+#       img_link = detail.find("img",{"class":"featured-image"}).get("src")
+#       titles.append(title)
+#       urls.append(url)
+#       contents.append(content)
+#       writers.append(writer)
+#       dates.append(date)
+#       imgs.append(img_link)
+#     else:
+#       stop = "True"
+#       break
+# json_object = json.dumps([dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,imgs)], indent = 4,ensure_ascii=False)
+# with open('all_koreaboo'+".json", "w", encoding='utf8') as outfile:
+#     outfile.write(json_object)
+
+# Labelled data named as label_new_1203.xlsx
+# df = pd.read_excel("label_new_1203.xlsx")
+# df
+
+
+# df['TITLE'] = df['Title']
+# def std_text(text):
+#     text = text.lower()
+#     text = re.sub('\s\W',' ',text)
+#     text = re.sub('\W\s',' ',text)
+#     text = re.sub('\s+',' ',text)
+#     return text
+
+# df['TITLE'] = [std_text(s) for s in df['TITLE']]
+# df['TITLE'] = [word_tokenize(s) for s in df['TITLE']]
+# tags = defaultdict(lambda : wn.NOUN)
+# tags['J'] = wn.ADJ
+# tags['V'] = wn.VERB
+# tags['R'] = wn.ADV
+# for index,entry in enumerate(df['TITLE']):
+#     Final_words = []
+#     word_Lemmatized = WordNetLemmatizer()
+#     for word, tag in pos_tag(entry):
+#         if word not in stopwords.words('english') and re.match(r'^[A-Za-z0-9_-]+$', word):
+#             word_Final = word_Lemmatized.lemmatize(word,tags[tag[0]])
+#             Final_words.append(word_Final)
+#     df.loc[index,'title_final'] = str(Final_words)
+
+# X_train, X_test, y_train, y_test = model_selection.train_test_split(df['title_final'],df['Category'],
+#                                                                     test_size=0.25, 
+#                                                                     random_state=2,
+#                                                                     stratify=df['Category'])
+# Encoder = LabelEncoder()
+# y_train = Encoder.fit_transform(y_train)
+# y_test = Encoder.transform(y_test)
+# Tfidf_vect = TfidfVectorizer(max_features=15000)
+# Tfidf_vect.fit(df['title_final'])
+# X_train = Tfidf_vect.transform(X_train)
+# X_test = Tfidf_vect.transform(X_test)
+# nb = MultinomialNB()
+# nb.fit(X_train, y_train)
+# nb.score(X_test, y_test)
+
+# f = open('03_knews_nb.pickle', 'wb')
+# pickle.dump(nb, f)
+# f.close()
+# f = open('03_knews_vectorizer.pickle', 'wb')
+# pickle.dump(Tfidf_vect, f)
+# f.close()
+# f = open('03_knews_Encoder.pickle', 'wb')
+# pickle.dump(Encoder, f)
+# f.close()
 
 tanda="localhost"
 urlnya=""
@@ -174,7 +371,7 @@ while hasnext=="True":
     datef = datetime.datetime.strptime(date, "%b %d, %Y")
     print(date)
     if(datef.year>=limit_year):
-      date = datef.strftime("%A, %d %B %Y")
+      date = datef.strftime("%Y-%m-%d")
       paragraphs = soup.find("div",{"class":"article-wrapper"}).findAll("p")
       content = ''
       for p in paragraphs:
@@ -242,7 +439,7 @@ while True:
     datef = datetime.datetime.strptime(date, "%Y-%m-%d")
     print(date)
     if(datef.year>=limit_year):
-      date = datef.strftime("%A, %d %B %Y")
+      date = datef.strftime("%Y-%m-%d")
       img_link = detail.find("img",{"class":"featured-image"}).get("src")
       txt = title + " " + content
       txt = [preproc_str(txt)]
@@ -338,7 +535,7 @@ while(True):
       if datef > datenowf:
         continue
       elif datef == datenowf:
-        date = datef.strftime("%A, %d %B %Y")
+        date = datef.strftime("%Y-%m-%d")
         print(title)
         paragraphs = soup.find("div",{"class":"article-wrapper"}).findAll("p")
         content = ''
@@ -423,7 +620,7 @@ while(True):
       if datef > datenowf:
         continue
       elif datef == datenowf:
-        date = datef.strftime("%A, %d %B %Y")
+        date = datef.strftime("%Y-%m-%d")
         print(title)
         img_link = detail.find("img",{"class":"featured-image"}).get("src")
         txt = [preproc_str(title)]
