@@ -164,7 +164,7 @@ while hasnext=="True":
     # print(d['id']+'/'+d['slug'])
     url = 'https://www.soompi.com/article/'+d['id']+'/'+d['slug']
     title = d['title']['text']
-    print(title)
+    # print(title)
     page = rq.get(url)
     soup = bs(page.content, 'html.parser')
     # print(soup.prettify())
@@ -172,7 +172,8 @@ while hasnext=="True":
     writer = soup.find("div",{"class":"info-emphasis right"}).find("a").decode_contents()
     date = soup.find("div",{"class":"date-time"}).decode_contents()
     datef = datetime.datetime.strptime(date, "%b %d, %Y")
-    print(date)
+    datesql=datetime.datetime.strftime(datef,"%Y-%m-%d")
+    print(datesql)
     if(datef.year>=limit_year):
       paragraphs = soup.find("div",{"class":"article-wrapper"}).findAll("p")
       content = ''
@@ -187,7 +188,7 @@ while hasnext=="True":
       urls.append(url)
       contents.append(content)
       writers.append(writer)
-      dates.append(date)
+      dates.append(datesql)
       categories.append(cat)
       imgs.append(img_link)
       websites.append("soompi")
@@ -226,7 +227,7 @@ while True:
   for item in news:
     url = (item.find("a").get("href"))
     title = item.find("div",{"class":"ap-chron-medium-title"}).decode_contents()
-    print(title)
+    # print(title)
     page = rq.get(url)
     detail = bs(page.content, 'html.parser')
     paragraphs = detail.find("div",{"class":"entry-content"}).findAll("p")
@@ -239,7 +240,8 @@ while True:
       writer = "Koreaboo"
     date = detail.find("div",{"class":"posted-on"}).find("time").get('datetime')[:10]
     datef = datetime.datetime.strptime(date, "%Y-%m-%d")
-    print(date)
+    datesql=datetime.datetime.strftime(datef,"%Y-%m-%d")
+    print(datesql)
     if(datef.year>=limit_year):
       img_link = detail.find("img",{"class":"featured-image"}).get("src")
       txt = title + " " + content
@@ -250,7 +252,7 @@ while True:
       urls.append(url)
       contents.append(content)
       writers.append(writer)
-      dates.append(date)
+      dates.append(datesql)
       categories.append(cat)
       imgs.append(img_link)
       websites.append("koreaboo")
@@ -331,8 +333,9 @@ while(True):
       date = soup.find("div",{"class":"date-time"}).decode_contents()
       # print(date)
       datef = datetime.datetime.strptime(date, "%b %d, %Y")
+      datesql=datetime.datetime.strftime(datef,"%Y-%m-%d")
       datenowf = datetime.datetime.strptime(datenow, "%b %d, %Y")
-      # print(datef)
+      print(datesql)
       if datef > datenowf:
         continue
       elif datef == datenowf:
@@ -350,7 +353,7 @@ while(True):
         urls.append(url)
         contents.append(content)
         writers.append(writer)
-        dates.append(date)
+        dates.append(datesql)
         categories.append(cat)
         imgs.append(img_link)
         websites.append("soompi")
@@ -363,8 +366,9 @@ while(True):
   results_object = [dict(zip(col, row)) for row in zip(titles,urls,contents,writers,dates,categories,imgs,websites)]
   for result in results_object:
     requests.post(urlnya, data = result)
-  print("-----------------------------------------------------------------")
-  print("Collecting news from Koreaboo...")
+    #print(result)
+  # print("-----------------------------------------------------------------")
+  # print("Collecting news from Koreaboo...")
   titles = []
   urls = []
   contents = []
@@ -415,12 +419,13 @@ while(True):
         writer = "Koreaboo"
       date = detail.find("div",{"class":"posted-on"}).find("time").get('datetime')[:10]
       datef = datetime.datetime.strptime(date, "%Y-%m-%d")
+      datesql=datetime.datetime.strftime(datef,"%Y-%m-%d")
       datenowf = datetime.datetime.strptime(datenow, "%Y-%m-%d")
-      # print(datef)
+      print(datesql)
       if datef > datenowf:
         continue
       elif datef == datenowf:
-        print(title)
+        # print(title)
         img_link = detail.find("img",{"class":"featured-image"}).get("src")
         txt = [preproc_str(title)]
         X = Tfidf_vect.transform(txt)
