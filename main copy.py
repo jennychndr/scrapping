@@ -136,7 +136,7 @@ col = ['title','url','content','writer','date','category','img_link','website']
 timenow = datetime.datetime.now().strftime("%d%m%y%H%M%S")
 fname = 'all_sites_'+timenow
 hasnext = "True"
-pagenum = 1
+pagenum = 0
 retry = "False"
 retry_n = 0
 while hasnext=="True":
@@ -157,7 +157,7 @@ while hasnext=="True":
   retry_n = 0
   hasnext = str(data['pageInfo']['hasNextPage'])
   # print(hasnext)
-  pagenum += 1
+  #pagenum += 1
   # print(data['results'])
   for d in data['results']:
     # print(d['id'])
@@ -297,7 +297,7 @@ while(True):
   
   fname = 'soompi_today_'+timenow
   hasnext = "True"
-  pagenum = 1
+  pagenum = 0
   stop = False
   retry = "False"
   retry_n = 0
@@ -318,7 +318,7 @@ while(True):
       continue
     retry_n = 0
     hasnext = str(data['pageInfo']['hasNextPage'])
-    pagenum += 1
+    #pagenum += 1
     # print(data['results'])
     for d in data['results']:
       # # print(d['id'])
@@ -434,7 +434,7 @@ while(True):
         urls.append(url)
         contents.append(content)
         writers.append(writer)
-        dates.append(date)
+        dates.append(datesql)
         categories.append(cat)
         imgs.append(img_link)
         websites.append("koreaboo")
