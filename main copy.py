@@ -45,7 +45,56 @@ import requests
 import time
 # nltk.download('all')
 
+# df = pd.read_excel("label_new_1203.xlsx")
+# df
+# df['TITLE'] = df['Title']
+# def std_text(text):
+#     text = text.lower()
+#     text = re.sub('\s\W',' ',text)
+#     text = re.sub('\W\s',' ',text)
+#     text = re.sub('\s+',' ',text)
+#     return text
 
+# df['TITLE'] = [std_text(s) for s in df['TITLE']]
+# df['TITLE'] = [word_tokenize(s) for s in df['TITLE']]
+# tags = defaultdict(lambda : wn.NOUN)
+# tags['J'] = wn.ADJ
+# tags['V'] = wn.VERB
+# tags['R'] = wn.ADV
+# for index,entry in enumerate(df['TITLE']):
+#     Final_words = []
+#     word_Lemmatized = WordNetLemmatizer()
+#     for word, tag in pos_tag(entry):
+#         if word not in stopwords.words('english') and re.match(r'^[A-Za-z0-9_-]+$', word):
+#             word_Final = word_Lemmatized.lemmatize(word,tags[tag[0]])
+#             Final_words.append(word_Final)
+#     df.loc[index,'title_final'] = str(Final_words)
+
+
+# X_train, X_test, y_train, y_test = model_selection.train_test_split(df['title_final'],df['Category'],
+#                                                                     test_size=0.25, 
+#                                                                     random_state=2,
+#                                                                     stratify=df['Category'])
+# Encoder = LabelEncoder()
+# y_train = Encoder.fit_transform(y_train)
+# y_test = Encoder.transform(y_test)
+# Tfidf_vect = TfidfVectorizer(max_features=15000)
+# Tfidf_vect.fit(df['title_final'])
+# X_train = Tfidf_vect.transform(X_train)
+# X_test = Tfidf_vect.transform(X_test)
+# nb = MultinomialNB()
+# nb.fit(X_train, y_train)
+# nb.score(X_test, y_test)
+
+# f = open('03_knews_nb.pickle', 'wb')
+# pickle.dump(nb, f)
+# f.close()
+# f = open('03_knews_vectorizer.pickle', 'wb')
+# pickle.dump(Tfidf_vect, f)
+# f.close()
+# f = open('03_knews_Encoder.pickle', 'wb')
+# pickle.dump(Encoder, f)
+# f.close()
 
 tanda="localhost"
 urlnya=""
