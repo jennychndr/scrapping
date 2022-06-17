@@ -93,13 +93,13 @@ def preproc_str(strg):
           Final_words.append(word_Final)
   return str(Final_words)
 
-f = open('03_knews_nb.pickle', 'rb')
+f = open('/home/ubuntu/scrapping/03_knews_nb.pickle', 'rb')
 nb = pickle.load(f)
 f.close()
-f = open('03_knews_vectorizer.pickle', 'rb')
+f = open('/home/ubuntu/scrapping/03_knews_vectorizer.pickle', 'rb')
 Tfidf_vect = pickle.load(f)
 f.close()
-f = open('03_knews_Encoder.pickle', 'rb')
+f = open('/home/ubuntu/scrapping/03_knews_Encoder.pickle', 'rb')
 Encoder = pickle.load(f)
 f.close()
 
@@ -123,7 +123,7 @@ websites = []
 col = ['title','url','content','writer','date','category','img_link','website']
 datenow = datetime.datetime.now().strftime("%b %-d, %Y")
 
-fname = 'soompi_today_'+timenow
+fname = '/home/ubuntu/scrapping/soompi_today_'+timenow
 hasnext = "True"
 pagenum = 0
 stop = False
@@ -206,7 +206,7 @@ categories = []
 imgs = []
 websites = []
 col = ['title','url','content','writer','date','category','img_link','website']
-fname = 'koreaboo_today_'+timenow
+fname = '/home/ubuntu/scrapping/koreaboo_today_'+timenow
 pagenum = 0
 datenow = datetime.datetime.now().strftime("%Y-%m-%d")
 stop = False
